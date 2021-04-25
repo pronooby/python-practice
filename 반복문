@@ -1,0 +1,33 @@
+#-*- coding:utf-8 -*-
+# �ε��� ���α׷�
+# (��� ����)
+
+class House:
+    # �Ź� �ʱ�ȭ
+    def __init__(self, loca, house, deal, price, completion_year):
+        self.loca = loca
+        self.house = house
+        self.deal = deal
+        self.price = price
+        self.completion_year = completion_year
+
+    def show_detail(self):
+        print("{0}".format(self.loca))
+        print("{0}".format(self.house))
+        print("{0}".format(self.deal))
+        print("{0}".format(self.price))
+        print("{0}".format(self.completion_year))
+
+
+houses = []
+house1 = House("����", "����Ʈ", "�Ÿ�", "10��", "2010��")
+house2 = House("����", "���ǽ���", "����", "5��", "2007��")
+house1.show_detail()
+
+houses.append(house1)
+houses.append(house2)
+
+print('�Ź� {0}��'.format(len(houses)))
+
+for house in houses:
+    house.show_detail()
