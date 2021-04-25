@@ -1,0 +1,12 @@
+#-*- coding:utf-8 -*-
+#import module as mv
+#mv.price(3)
+
+#from module import price_morning, price_army as arm
+#from travel.ty import Typackage
+#trip=Typackage()
+#trip.detail()
+
+from travel import *
+trip=vi.Vipackage()
+trip.detail()
