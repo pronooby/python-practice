@@ -1,0 +1,149 @@
+print("되냐?from random import *
+
+
+class unit():
+    def __init__(self, name, hp, speed):
+        self.name = name
+        self.hp = hp
+        self.speed = speed
+        print('{0} ������ �����Ǿ����ϴ�'.format(self.name))
+
+    def move(self, loca):
+        print("[���� ���� �̵�]")
+        print('{0} : {1} �������� �̵��Ѵ�. \
+        [�ӵ� {2}]'.format(self.name, loca, self.speed))
+
+    def dam(self, damage):
+        print('{0} : {1} �������� �Ծ����ϴ�.'.format(self.name, damage))
+        self.hp -= damage
+        print('{0} : ���� ü���� {1} �̴�.'.format(self.name, self.hp))
+        if self.hp <= 0:
+            print('{0} : �ı��Ǿ���.'.format(self.name))
+
+
+class attunit(unit):
+    def __init__(self, name, hp, speed, damage):
+        unit.__init__(self, name, hp, speed)
+        self.damage = damage
+
+    def att(self, loca):
+        print('{0} : {1} �������� �����մϴ�. \
+        [ ���ݷ� {2}]'.format(self.name, loca, self.damage))
+
+
+class flyableunit():
+    def __init__(self, name, hp, speed, fly_speed):
+        unit.__init__(self, name, hp, 0)
+        self.fly_speed = fly_speed
+        print('{0} ������ �����Ǿ����ϴ�.'.format(self.name))
+
+    def fly(self, name, loca):
+        print('{0} : {1} �������� ���ư���. \
+        [�ӵ� {2}]'.format(self.name, loca, self.fly_speed))
+
+
+class flyableattunit(attunit, flyableunit):
+    def __init__(self, name, hp, speed, damage, fly_speed):
+        attunit.__init__(self, name, hp, 0, damage)
+        flyableunit.__init__(self, name, hp, speed, fly_speed)
+
+
+# ����
+class Marine(attunit):
+    def __init__(self):
+        attunit.__init__(self, "����", 40, 1, 5)
+
+    def stimpack(self):
+        if self.hp > 10:
+            self.hp -= 10
+            print('{0}:������ ���!'.format(self.name))
+        else:
+            print('{0}:ü���� �����ϴ�'.format(self.name))
+
+
+class Tank(attunit):
+    seize_developed = False
+
+    def __init__(self):
+        attunit.__init__(self, "��ũ", 150, 1, 35)
+        self.seize_developed = False
+
+    def set_seize_mode(self):
+        if Tank.seize_developed is False:
+            return
+        if self.seize_mode is False:
+            print('{0} : ������ ��ȯ'.format(self.name))
+            self.damage *= 2
+            self.seize_mode is True
+
+        if self.seize_mode is True:
+            print('{0} : ������ ����'.format(self.name))
+            self.damage /= 2
+            self.seize_mode is False
+
+
+class Wraith(flyableattunit):
+    def __init__(self):
+        flyableattunit.__init__(self, "���̽�", 80, 0, 20, 5)
+        self.clocked = False
+
+    def clocking(self):
+        if self.clocked is True:
+            print('{0} : Ŭ��ŷ ����'.format(self.name))
+            self.clocked is False
+        else:
+            print('{0} : Ŭ��ŷ Ȱ��ȭ'.format(self.name))
+            self.clocked is True
+
+
+def game_start():
+    print("[�˸�] ���ο� ���� ����")
+
+
+def game_over():
+    print("���� ��")
+
+# ���� ����
+game_start()
+
+
+m1 = Marine()
+m2 = Marine()
+m3 = Marine()
+
+t1 = Tank()
+t2 = Tank()
+
+w1 = Wraith()
+
+attack_units=[]
+attack_units.append(m1)
+attack_units.append(m2)
+attack_units.append(m3)
+attack_units.append(t1)
+attack_units.append(t2)
+attack_units.append(w1)
+
+for unit in attack_units:
+    unit.move('1��')
+
+Tank.seize_developed is True
+print("��ũ ������ ���� �Ϸ�")
+
+# ���� ��� �غ�
+
+for unit in attack_units:
+    if isinstance(unit, Marine):
+        unit.stimpack()
+    if isinstance(unit, Tank):
+        unit.set_seize_mode()
+    if isinstance(unit, Wraith):
+        unit.clocking()
+
+for unit in attack_units:
+    unit.att("1��")
+    
+for unit in attack_units:
+    unit.dam(randint(5,21))
+    
+game_over()
