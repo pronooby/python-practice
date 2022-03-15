@@ -1,0 +1,12 @@
+import requests
+from bs4 import BeautifulSoup
+
+search = input(str())
+response = requests.get("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query="+search)
+html=response.text
+soup=BeautifulSoup(html,'html.parser')
+links = soup.select(".news_tit")
+for link in links:
+    title=link.text
+    url=link.attrs['href']
+    print(title,url)
